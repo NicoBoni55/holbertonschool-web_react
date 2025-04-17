@@ -46,3 +46,4 @@ interface Student extends StudentClass {
     workOnHomework: () => string;
     displayName: () => string;
 }
+
