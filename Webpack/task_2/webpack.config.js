@@ -26,6 +26,9 @@ module.exports = {
                             outputPath: './assets/',
                         },
                     },
+                    {
+                        loader: 'image-webpack-loader',
+                    }
                 ],
             }
         ]
