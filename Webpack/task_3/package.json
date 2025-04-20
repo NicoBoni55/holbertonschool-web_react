@@ -23,6 +23,6 @@
   },
   "scripts": {
     "build": "webpack",
-    "start-dev": "webpack serve --mode development"
+    "start-dev": "webpack serve --open"
   }
 }
