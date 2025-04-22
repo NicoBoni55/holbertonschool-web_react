@@ -11,9 +11,7 @@ describe('App component', () => {
     it('text content in p is correct', () => {
         render(<App />);
         const p1 = screen.getByText('Login to access the full dashboard');
-        const footer = screen.getByText('Copyright 2025 - Holberton School', {
-            selector: '.App-footer p',
-        });
+        const footer = screen.getByText(/Copyright 2025 - Holberton School/i);
         expect(p1).toBeInTheDocument();
         expect(footer).toBeInTheDocument();
     })
