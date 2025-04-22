@@ -11,9 +11,11 @@ describe('App component', () => {
     it('text content in p is correct', () => {
         render(<App />);
         const p1 = screen.getByText('Login to access the full dashboard');
-        const p2 = screen.getByText('Copyright 2025 - Holberton School');
+        const footer = screen.getByText('Copyright 2025 - Holberton School', {
+            selector: '.App-footer p',
+        });
         expect(p1).toBeInTheDocument();
-        expect(p2).toBeInTheDocument();
+        expect(footer).toBeInTheDocument();
     })
 
     it('img is rendered', () => {
