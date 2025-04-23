@@ -19,7 +19,7 @@
 
 .App-body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: left;
   padding-top: 0.5rem;
   padding-bottom: 25rem;
@@ -27,25 +27,31 @@
   border-bottom: #e1003c solid 2px;
 }
 
+.App-login {
+  display: flex;
+  flex-direction: row;
+}
+
 .App-body label {
   font-size: 14px;
-  margin-top: 14px;
-  margin-left: 14px;
+  margin-top: 15px;
+  margin-right: 4px;
 }
 
 .App-body input {
   width: 200px;
-  height: 20px;
-  margin-left: 17px;
-  margin-top: 8px;
+  height: 15px;
+  margin-left: 5px;
+  margin-right: 7px;
+  margin-top: 12px;
 }
 
 .App-body button {
-  width: 100px;
+  width: 50px;
   font-size: 10px;
   height: 25px;
-  margin-left: 10px;
-  margin-top: 8px;
+  margin-left: 7px;
+  margin-top: 9px;
 }
 
 .App-body p {

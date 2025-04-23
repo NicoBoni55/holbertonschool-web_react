@@ -4,3 +4,25 @@
     font-size: 14px;
     font-family: sans-serif;
 }
+
+.notifications button img {
+    width: 10px;
+    height: 10px;
+}
+
+.notifications button {
+    position: absolute;
+    top : 10px;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.notifications li {
+    color: #e1003c;
+}
+
+.notifications ul li:first-child {
+    color: blue;
+} 
