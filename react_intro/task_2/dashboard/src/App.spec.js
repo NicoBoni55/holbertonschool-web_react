@@ -42,7 +42,7 @@ describe ('login form', () => {
 
     it ('render submit button', () => {
         render (<App />);
-        const submitButton = screen.getByText(/ok/i);
+        const submitButton = screen.getByRole('button', {name: /ok/i});
         expect(submitButton).toBeInTheDocument();
     })
 })
