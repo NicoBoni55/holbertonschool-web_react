@@ -22,3 +22,27 @@ describe('App component', () => {
         expect(img).toBeInTheDocument();
     })
 })
+
+describe ('login form', () => {
+    it('login input is rendered', () => {
+        render (<App />);
+        const emailInput = screen.getByPlaceholderText('Email');
+        const passwordInput = screen.getByPlaceholderText('Password');
+        expect(emailInput).toBeInTheDocument();
+        expect(passwordInput).toBeInTheDocument();
+    })
+
+    it ('render label elements', () => {
+        render (<App />);
+        const emailLabel = screen.getByLabelText('Email:');
+        const passwordLabel = screen.getByLabelText('Password:');
+        expect(emailLabel).toBeInTheDocument();
+        expect(passwordLabel).toBeInTheDocument();
+    })
+
+    it ('render submit button', () => {
+        render (<App />);
+        const submitButton = screen.getByText('OK');
+        expect(submitButton).toBeInTheDocument();
+    })
+})
