@@ -26,9 +26,9 @@ describe('App component', () => {
 describe ('login form', () => {
     it('login input is rendered', () => {
         render (<App />);
-        const emailInput = screen.getByPlaceholderText(/email/i);
+        const emailInput = screen.getAllByRole('textbox');
         const passwordInput = screen.getByPlaceholderText(/password/i);
-        expect(emailInput).toBeInTheDocument();
+        expect(emailInput.length).toBe(1);
         expect(passwordInput).toBeInTheDocument();
     })
 
