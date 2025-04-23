@@ -11,24 +11,24 @@ describe('Notifications component', () => {
 
     it('check that button element is being displayed', () => {
         render(<Notifications />);
-        const button = screen.getByLabelText(/close/i);
+        const button = screen.getByLabelText(/Close/i);
         expect(button).toBeInTheDocument();
     });
 
     it('check that li shows displayed', () => {
         render(<Notifications />);
         const listItems = screen.getAllByRole('listitem');
-        expect(listItems[0]).toHaveTextContent(/new course available/i);
-        expect(listItems[1]).toHaveTextContent(/new resume available/i);
-        expect(listItems[2]).toHaveTextContent(/urgent requirement/i);
+        expect(listItems[0]).toHaveTextContent(/New course available/i);
+        expect(listItems[1]).toHaveTextContent(/New resume available/i);
+        expect(listItems[2]).toHaveTextContent(/Urgent requirement/i);
     })
 
     it('check that click button displays console log', () => {
         const log = jest.spyOn(console, 'log');
         render(<Notifications />);
-        const button = screen.getByLabelText('Close');
+        const button = screen.getByLabelText(/Close/i);
         fireEvent.click(button);
-        expect(log).toHaveBeenCalledWith('Close button has been clicked');
+        expect(log).toHaveBeenCalledWith("Close button has been clicked");
         log.mockRestore();
     })
 })
