@@ -34,8 +34,8 @@ describe ('login form', () => {
 
     it ('render label elements', () => {
         render (<App />);
-        const emailLabel = screen.getByLabelText(/email:/i);
-        const passwordLabel = screen.getByLabelText(/password:/i);
+        const emailLabel = screen.getByLabelText(/email/i);
+        const passwordLabel = screen.getByLabelText(/password/i);
         expect(emailLabel).toBeInTheDocument();
         expect(passwordLabel).toBeInTheDocument();
     })
