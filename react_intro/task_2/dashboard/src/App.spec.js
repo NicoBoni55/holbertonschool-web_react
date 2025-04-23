@@ -26,23 +26,23 @@ describe('App component', () => {
 describe ('login form', () => {
     it('login input is rendered', () => {
         render (<App />);
-        const emailInput = screen.getByPlaceholderText('Email');
-        const passwordInput = screen.getByPlaceholderText('Password');
+        const emailInput = screen.getByPlaceholderText(/email/i);
+        const passwordInput = screen.getByPlaceholderText(/password/i);
         expect(emailInput).toBeInTheDocument();
         expect(passwordInput).toBeInTheDocument();
     })
 
     it ('render label elements', () => {
         render (<App />);
-        const emailLabel = screen.getByLabelText('Email:');
-        const passwordLabel = screen.getByLabelText('Password:');
+        const emailLabel = screen.getByLabelText(/email:/i);
+        const passwordLabel = screen.getByLabelText(/password:/i);
         expect(emailLabel).toBeInTheDocument();
         expect(passwordLabel).toBeInTheDocument();
     })
 
     it ('render submit button', () => {
         render (<App />);
-        const submitButton = screen.getByText('OK');
+        const submitButton = screen.getByText(/ok/i);
         expect(submitButton).toBeInTheDocument();
     })
 })
