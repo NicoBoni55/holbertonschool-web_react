@@ -14,14 +14,14 @@ test ('renders the component', async () => {
     const loginButton = screen.getByText('OK');
 
     await user.click(emailLabel);
+    expect(emailInput).toHaveFocus();
     await user.click(passwordLabel);
+    expect(passwordInput).toHaveFocus();
 
     expect(p1).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
     expect(emailLabel).toBeInTheDocument();
-    expect(emailInput).toHaveFocus();
-    expect(passwordInput).toHaveFocus();
     expect(passwordLabel).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
 });
