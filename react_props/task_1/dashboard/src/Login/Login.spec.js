@@ -9,8 +9,8 @@ test ('renders the component', async () => {
     const p1 = screen.getByText('Login to access the full dashboard');
     const emailInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
-    const emailLabel = screen.getByText('Email');
-    const passwordLabel = screen.getByText('Password');
+    const emailLabel = screen.getByText(/email/i);
+    const passwordLabel = screen.getByText(/password/i);
     const loginButton = screen.getByText('OK');
 
     await user.click(emailLabel);
