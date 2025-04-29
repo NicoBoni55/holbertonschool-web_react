@@ -1,8 +1,8 @@
 import closeIcon from '../assets/close-button.png';
 import './Notifications.css';
-import { getLatestNotification } from './utils';
+import NotificationItem from './NotificationItem';
 
-function Notifications() {
+function Notifications({notifications = []}) {
     return (
         <div className="notifications">
             <p>Here is the list of notifications</p>
@@ -12,12 +12,17 @@ function Notifications() {
                     <img src={closeIcon} alt='close-icon'></img>
             </button>
             <ul>
-                <li data-priority="1">New course available</li>
-                <li data-priority="2">New resume available</li>
-                <li dangerouslySetInnerHTML={{__html: getLatestNotification()}}></li>
+                {notifications.map((notifications) => (
+                    <NotificationItem
+                        key={notifications.id}
+                        type={notifications.type}
+                        value={notifications.value}
+                        html={notifications.html}
+                    />
+                ))}
             </ul>
         </div>
-    )
+    );
 }
 
 export default Notifications;
