@@ -1,3 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
+
 export default function NotificationItem({ type, html, value }) {
     const className = type === 'default' ? 'default-notification' : 'urgent-notification';
     return (
@@ -11,3 +14,17 @@ export default function NotificationItem({ type, html, value }) {
         </li>
     );
 }
+
+NotificationItem.propTypes = {
+    type: PropTypes.string.isRequired,
+    html: PropTypes.shape({
+        __html: PropTypes.string
+    }),
+    value: PropTypes.string
+};
+
+NotificationItem.defaultProps = {
+    type: 'default',
+    html: null,
+    value: ''
+};

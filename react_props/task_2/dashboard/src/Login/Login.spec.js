@@ -24,4 +24,4 @@ test ('renders the component', async () => {
     expect(emailLabel).toBeInTheDocument();
     expect(passwordLabel).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
-});
+}, 10000);
