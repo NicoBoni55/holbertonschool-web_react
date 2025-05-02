@@ -1,6 +1,6 @@
 import CourseListRow from "./CourseListRow"
 
-export default function CourseList(courses=[]) {
+export default function CourseList({courses=[]}) {
     return (
         <table id="CourseList">
             <thead>
