@@ -8,30 +8,33 @@ function Notifications({notifications = [], displayDrawer = false }) {
         <div className='notifications-title'>
             <p>Your notifications</p>
         </div>
-            {displayDrawer ? (
+
+            {displayDrawer && (
                 <div className="notifications">
-                    <p>Here is the list of notifications</p>
-                </div>
-            ) : (
-                <div className="notifications">
-                    <p>Here is the list of notifications</p>
-                    <button
-                        aria-label='Close' 
-                        onClick={() => console.log('Close button has been clicked')}>
-                            <img src={closeIcon} alt='close-icon'></img>
-                    </button>
+                    {notifications.length === 0 ?(
+                        <p>No new Notification for now</p>
+                    ) : (
+                        <>
+                            <p>Here is the list of notifications</p>
+                            <button
+                                aria-label='Close' 
+                                onClick={() => console.log('Close button has been clicked')}>
+                                    <img src={closeIcon} alt='close-icon'></img>
+                            </button>
+                            <ul>
+                                {notifications.map((notification) => (
+                                    <NotificationItem
+                                    key={notification.id}
+                                    type={notification.type}
+                                    value={notification.value}
+                                    html={notification.html}
+                                    />
+                                ))}
+                            </ul>
+                        </>
+                    )}
                 </div>
             )}
-            <ul>
-                {notifications.map((notifications) => (
-                    <NotificationItem
-                    key={notifications.id}
-                    type={notifications.type}
-                    value={notifications.value}
-                    html={notifications.html}
-                    />
-                ))}
-            </ul>
         </>
     );
 }
