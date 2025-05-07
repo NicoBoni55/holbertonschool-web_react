@@ -21,12 +21,12 @@ const coursesList = [
 const isLoggedIn = true
   return (
     <>
-      <Notifications notifications={notificationsList} />
+      <Notifications notifications={notificationsList} displayDrawer={true} />
       <Header />
-      {isLoggedIn ? (
-        <CourseList courses={[]} />
-      ): (
-        <Login />
+      {isLoggedIn === false ? (
+        <Login/>
+      ) : (
+        <CourseList courses={coursesList}/>
       )}
       <Footer />
     </>

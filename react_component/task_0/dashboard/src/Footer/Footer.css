@@ -1,0 +1,9 @@
+.App-footer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .App-footer p {
+    margin-top: 15px;
+    font-size: 14px;
+}
