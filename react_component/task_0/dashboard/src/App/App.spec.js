@@ -13,12 +13,16 @@ test ('renders all components', () => {
   expect(img).toBeInTheDocument();
 });
 
-test('isLoggedIn is false', () => {
+test('isLoggedIn is false and render Login component', () => {
   render(<App isLoggedIn={false} />);
-  expect(screen.getByText(/login/i)).toBeInTheDocument();
+  const loginElement1 = screen.getByPlaceholderText(/Email/i);
+  const loginElement2 = screen.getByPlaceholderText(/Password/i);
+  expect(loginElement1).toBeInTheDocument();
+  expect(loginElement2).toBeInTheDocument();
 });
 
-test('isLoggedIn is true', () => {
+test('isLoggedIn is true and render CourseList component', () => {
   render(<App isLoggedIn={true}/>);
-  expect(screen.getByText(/course list/i)).toBeInTheDocument();
+  const courseElement = screen.getByText(/Available courses/i);
+  expect(courseElement).toBeInTheDocument();
 });

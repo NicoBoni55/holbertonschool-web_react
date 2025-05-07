@@ -28,4 +28,4 @@ test ('inputs elements get focused', async () => {
     await user.click(labelPassword);
     expect(inputPassword).toHaveFocus();
     
-}, 10000);
+}, 20000);

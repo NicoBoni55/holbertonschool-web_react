@@ -7,7 +7,6 @@ import './App.css'
 import { Component } from 'react'
 
 
-const isLoggedIn = false
 
 const notificationsList = [
   { id: 1, type: 'default', value: 'New course available' },
@@ -22,7 +21,8 @@ const coursesList = [
 ]
 
 class App extends Component {
-render () {
+  render () {
+  const {isLoggedIn} = this.props;
   return (
     <>
       <Notifications notifications={notificationsList} displayDrawer={false} />
@@ -36,6 +36,10 @@ render () {
     </>
   )
   }
+}
+
+App.defaultProps = {
+  isLoggedIn: false,
 }
 
 export default App
