@@ -26,3 +26,21 @@ test('isLoggedIn is true and render CourseList component', () => {
   const courseElement = screen.getByText(/Available courses/i);
   expect(courseElement).toBeInTheDocument();
 });
+
+test('check that pressing ctrl+h logOut is called', () => {
+  const logOut = jest.fn();
+  render(<App logOut={logOut} />);
+  const clickEvent = new KeyboardEvent('keydown', {key:"h", ctrlKey: true});
+  document.dispatchEvent(clickEvent);
+  expect(logOut).toHaveBeenCalled();
+})
+
+test('check alert when pressing ctrl+h', () => {
+  const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+  const logOut = jest.fn();
+  render(<App logOut={logOut} />);
+  const clickEvent = new KeyboardEvent('keydown', {key:"h", ctrlKey: true});
+  document.dispatchEvent(clickEvent);
+  expect(alert).toHaveBeenCalledWith('Logging you out');
+  alert.mockRestore();
+})
