@@ -46,3 +46,23 @@ test('check alert when pressing ctrl+h', () => {
   expect(logOut).toHaveBeenCalled();
   alertMock.mockRestore();
 })
+
+test('check that a title of Course list is being displayed', () => {
+  render(<App isLoggedIn={true} />);
+  const courseElement = screen.getByText(/Course list/i);
+  expect(courseElement).toBeInTheDocument();
+})
+
+test('check that the title of login is being displayed', () => {
+  render(<App isLoggedIn={false} />);
+  const loginElement = screen.getByText(/Log in to continue/i);
+  expect(loginElement).toBeInTheDocument();
+})
+
+test('check title of News from the School is being displayed', () => {
+  render(<App />);
+  const title = screen.getByText(/News from the School/i);
+  const p = screen.getByText(/Holberton School News goes here/i)
+  expect(title).toBeInTheDocument();
+  expect(p).toBeInTheDocument();
+})
