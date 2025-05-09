@@ -1,4 +1,4 @@
-import {screen, render} from "@testing-library/react";
+import {screen, render, cleanup} from "@testing-library/react";
 import WithLogging from "./WithLogging";
 import React from "react";
 
@@ -11,6 +11,8 @@ class MockApp extends React.Component {
       )
     }
 }
+
+afterEach(cleanup);
 
 test ('renders the wrapped component correctly', () => {
     const MockWithLogging = WithLogging(MockApp);
