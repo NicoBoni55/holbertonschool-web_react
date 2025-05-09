@@ -1,0 +1,14 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.no-course {
+    text-align: center;
+    font-weight: bold;
+}
