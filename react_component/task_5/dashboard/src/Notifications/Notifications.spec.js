@@ -68,3 +68,37 @@ test('check that click li displays console log', () => {
     expect(log).toHaveBeenCalledWith("Notification 1 has been marked as read");
     log.mockRestore();
 })
+
+test ('check that Notification component doesn´t rerender', () => {
+    const notificationsList = [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+    ];
+
+    const { rerender } = render(<Notifications notifications={notificationsList} displayDrawer={true} />);
+    const renderSpy = jest.spyOn(Notifications.prototype, 'render');
+    rerender(<Notifications notifications={notificationsList} displayDrawer={true} />);
+
+    expect(renderSpy).not.toHaveBeenCalled();
+    renderSpy.mockRestore();
+})
+
+test ('check that Notification component rerender', () => {
+    const notificationsList = [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+    ];
+
+    const { rerender } = render(<Notifications notifications={notificationsList} displayDrawer={true} />);
+    const renderSpy = jest.spyOn(Notifications.prototype, 'render');
+
+    const newNotificationsList = [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+        { id: 3, type: 'urgent', value: 'New message available' },
+    ];
+    rerender(<Notifications notifications={newNotificationsList} displayDrawer={true} />);
+
+    expect(renderSpy).toHaveBeenCalled();
+    renderSpy.mockRestore();
+})
