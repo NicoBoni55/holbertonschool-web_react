@@ -38,10 +38,11 @@ class App extends Component {
   }
 
   handleKeyPress = (event) => {
-    if (event.ctrlKey && event.key === 'h')
+    if (event.ctrlKey && event.key === 'h'){
       alert('Logging you out');
       this.props.logOut();
     }
+  }
 
   render () {
   const {isLoggedIn} = this.props;
@@ -49,6 +50,7 @@ class App extends Component {
   
   return (
     <div className={css(styles.App)}>
+      <div className={css(styles.body)}>
       <Notifications notifications={notificationsList} displayDrawer={true} />
       <Header />
       {isLoggedIn === false ? (
@@ -65,6 +67,7 @@ class App extends Component {
       </BodySection>
       <Footer />
     </div>
+    </div>
   )
   }
 }
@@ -78,6 +81,9 @@ const styles = StyleSheet.create({
   App: {
     margin: 0,
     padding: 0,
+  },
+  body: {
+    fontSize: '20px',
   }
 })
 
