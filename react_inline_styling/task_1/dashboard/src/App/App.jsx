@@ -50,7 +50,6 @@ class App extends Component {
   
   return (
     <div className={css(styles.App)}>
-      <div className={css(styles.body)}>
       <Notifications notifications={notificationsList} displayDrawer={true} />
       <Header />
       {isLoggedIn === false ? (
@@ -62,11 +61,12 @@ class App extends Component {
             <CourseListWithLogging courses={coursesList}/>
           </BodySectionWithMarginBottom>
       )}
-      <BodySection title={"News from the School"}>
+      <BodySection title={"News from the School"} className={css(styles.body)}>
         <p>Holberton School News goes here</p>
       </BodySection>
-      <Footer />
-    </div>
+      <div className={css(styles.footer)}>
+        <Footer />
+      </div>
     </div>
   )
   }
@@ -84,6 +84,11 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: '20px',
+  },
+  footer: {
+    fontSize: '20px',
+    textAlign: 'center',
+    marginTop: '20px',
   }
 })
 
