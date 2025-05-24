@@ -11,7 +11,7 @@ class Notifications extends Component {
 
     shouldComponentUpdate(nextProps) {
         return (
-            this.props.notifications.length !== nextProps.notifications.length,
+            this.props.notifications.length !== nextProps.notifications.length ||
             this.props.displayDrawer !== nextProps.displayDrawer
         );
     }

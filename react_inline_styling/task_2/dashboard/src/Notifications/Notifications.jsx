@@ -10,49 +10,46 @@ class Notifications extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return (
-            this.props.notifications.length !== nextProps.notifications.length ||
-            this.props.displayDrawer !== nextProps.displayDrawer
-        );
+        return (this.props.notifications.length !== nextProps.notifications.length);
     }
 
     render () {
-    const {notifications, handleDisplayDrawer, handleHideDrawer} = this.props;
+    const {notifications} = this.props;
     const {displayDrawer} = this.props;
         return (
             <>
-            <div className='notifications-title' onClick={handleDisplayDrawer}>
+            <div className='notifications-title'>
                 <p>Your notifications</p>
             </div>
 
-            {displayDrawer && (
-                <div className={css(styles.notifications)}>
-                    {notifications.length === 0 ?(
-                        <p>No new Notification for now</p>
-                    ) : (
-                        <>
-                            <p>Here is the list of notifications</p>
-                            <button
-                                className={css(styles.closeButton)}
-                                aria-label='Close' 
-                                onClick={handleHideDrawer}>
-                                    <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
-                            </button>
-                            <ul>
-                                {notifications.map((notification) => (
-                                    <NotificationItem
-                                    key={notification.id}
-                                    type={notification.type}
-                                    value={notification.value}
-                                    html={notification.html}
-                                    onClick={() =>(this.markAsRead(notification.id))}
-                                    />
-                                ))}
-                            </ul>
-                        </>
-                    )}
-                </div>
-            )}
+            <div className={css(styles.notifications)}>
+                {notifications.length === 0 ?(
+                    <p>No new Notification for now</p>
+                ): displayDrawer === false ? (
+                    <p>Here is the list of notifications</p>
+                ) : (
+                    <>
+                        <p>Here is the list of notifications</p>
+                        <button
+                            className={css(styles.closeButton)}
+                            aria-label='Close' 
+                            onClick={() => console.log('Close button has been clicked')}>
+                                <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
+                        </button>
+                        <ul>
+                            {notifications.map((notification) => (
+                                <NotificationItem
+                                key={notification.id}
+                                type={notification.type}
+                                value={notification.value}
+                                html={notification.html}
+                                onClick={() =>(this.markAsRead(notification.id))}
+                                />
+                            ))}
+                        </ul>
+                    </>
+                )}
+            </div>
         </>
         )
     }
@@ -61,8 +58,7 @@ class Notifications extends Component {
 Notifications.defaultProps = {
     displayDrawer: false,
     notifications: [],
-    handleDisplayDrawer: () => {},
-    handleHideDrawer: () => {},
+
 }
 
 const styles = StyleSheet.create({
