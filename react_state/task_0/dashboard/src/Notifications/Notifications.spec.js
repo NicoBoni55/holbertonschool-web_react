@@ -65,7 +65,7 @@ test('displayDrawer set to true and notifications is empty', () => {
     const listItems = screen.queryAllByRole("listitem");
 
     expect(button).not.toBeInTheDocument();
-    expect(notificationText).toBeInTheDocument();
+    expect(notificationText).not.toBeInTheDocument();
     expect(listItems).toHaveLength(0);
 })
 

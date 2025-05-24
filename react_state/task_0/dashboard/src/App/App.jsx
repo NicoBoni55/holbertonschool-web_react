@@ -77,7 +77,7 @@ class App extends Component {
           </BodySectionWithMarginBottom>
       )}
       <BodySection title={"News from the School"} className={css(styles.body)}>
-        <p className={css(styles.p)}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio explicabo dolore nam officiis, libero cupiditate animi excepturi pariatur ab similique molestias omnis architecto eveniet obcaecati, dicta quos itaque beatae aperiam!</p>
+        <p className={css(styles.p)}>Holberton School News goes here</p>
       </BodySection>
       <div className={css(styles.footer)}>
         <Footer />
