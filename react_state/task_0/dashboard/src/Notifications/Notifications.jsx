@@ -28,7 +28,7 @@ class Notifications extends Component {
         <div
           className="menuItem"
           onClick={handleDisplayDrawer}
-          data-testid="menuItem"
+          id="menuItem"
         >
           <p>Your notifications</p>
         </div>
@@ -36,28 +36,10 @@ class Notifications extends Component {
         {displayDrawer && (
           <div
             className={css(styles.notifications)}
-            data-testid="notifications"
           >
             {notifications.length > 0 ? (
               <>
                 <p>Here is the list of notifications</p>
-                <button
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    position: "absolute",
-                    right: 20,
-                  }}
-                  aria-label="Close"
-                  onClick={handleHideDrawer}
-                  data-testid="closeButton"
-                >
-                  <img
-                    src={closeIcon}
-                    alt="close-icon"
-                    style={{ width: "15px", height: "15px" }}
-                  />
-                </button>
                 <ul>
                   {notifications.map((notification) => (
                     <NotificationItem
@@ -70,9 +52,20 @@ class Notifications extends Component {
                     />
                   ))}
                 </ul>
+                <button
+                  className="close-button"
+                  aria-label="Close"
+                  onClick={handleHideDrawer}
+                >
+                  <img
+                    src={closeIcon}
+                    alt="close-icon"
+                    style={{ width: "10px", height: "10px" }}
+                  />
+                </button>
               </>
             ) : (
-                <></>
+                <p>No new notification for now</p>
             )}
           </div>
         )}

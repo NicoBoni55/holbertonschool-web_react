@@ -62,10 +62,10 @@ class App extends Component {
   return (
     <div className={css(styles.App)}>
       <Notifications 
-      notifications={notificationsList}
-      displayDrawer={displayDrawer}
-      handleDisplayDrawer={this.handleDisplayDrawer}
-      handleHideDrawer={this.handleHideDrawer} />
+        notifications={notificationsList}
+        displayDrawer={displayDrawer}
+        handleDisplayDrawer={this.handleDisplayDrawer}
+        handleHideDrawer={this.handleHideDrawer} />
       <Header />
       {isLoggedIn === false ? (
         <BodySectionWithMarginBottom title={"Log in to continue"}>
