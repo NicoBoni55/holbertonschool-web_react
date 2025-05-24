@@ -66,7 +66,7 @@ class Notifications extends Component {
                       type={notification.type}
                       value={notification.value}
                       html={notification.html}
-                      markAsRead={this.markAsRead(notification.id)}
+                      markAsRead={() => this.markAsRead(notification.id)}
                     />
                   ))}
                 </ul>
