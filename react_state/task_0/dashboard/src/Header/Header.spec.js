@@ -1,21 +1,32 @@
-import {screen, render} from '@testing-library/react';
-import Header from './Header';
+import { render, screen } from "@testing-library/react";
 import { StyleSheetTestUtils } from 'aphrodite';
+import Header from "./Header";
 
 beforeAll(() => {
     StyleSheetTestUtils.suppressStyleInjection();
 });
-
+  
 afterAll(() => {
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-describe('Header component', () => {
-    it('renders the component', () => {
-        render(<Header />);
-        const img = screen.getByAltText(/holberton logo/i);
-        const h1 = screen.getByText(/School Dashboard/i);
-        expect(h1).toBeInTheDocument();
-        expect(img).toBeInTheDocument();
+describe("Header Component", () => {
+  beforeEach(() => {
+    render(<Header />);
+  });
+
+  // Test if Header renders correct text
+  it("Renders correct text", () => {
+    const heading = screen.getByRole("heading", {
+      level: 1,
+      name: /School Dashboard/i,
     });
-})
+    expect(heading).toBeInTheDocument();
+  });
+
+  // Test if Header renders image
+  it("Renders an image", () => {
+    const image = screen.getByAltText(/holberton logo/i);
+    expect(image).toBeInTheDocument();
+  });
+});

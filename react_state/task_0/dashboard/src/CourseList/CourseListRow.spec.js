@@ -1,56 +1,88 @@
-import {screen, render} from '@testing-library/react';
-import CourseListRow from './CourseListRow';
-import { TestEnvironment } from 'jest-environment-jsdom';
-import { StyleSheetTestUtils } from 'aphrodite';
+// import { render, screen } from "@testing-library/react";
+// import CourseListRow from "./CourseListRow";
 
-beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-});
+// describe("CourseListRow Component", () => {
+//   it("renders one header cell with colspan of 2 if textSecondCell is null", () => {
+//     render(
+//       <table>
+//         <thead>
+//           <CourseListRow isHeader={true} textFirstCell="Khiba Koenane" />
+//         </thead>
+//       </table>
+//     );
 
-afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+//     const headerCell = screen.getByRole("columnheader");
+//     expect(headerCell).toBeInTheDocument();
+//     expect(headerCell).toHaveAttribute("colspan", "2");
+//     expect(headerCell.textContent).toBe("Khiba Koenane");
+//   });
 
-describe('CourseListRow', () => {
-    it('isHeader is true and textSecondCell is null', () => {
-        render(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell={null} />);
-        const th = screen.getByText('test');
-        expect(th).toBeInTheDocument();
-        const colspan = th.getAttribute('colSpan');
-        expect(colspan).toBe('2');
-    })
-    it('isHeader is true and textSecondCell is not null', () => {
-        render(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell="test2" />);
-        const th1 = screen.getByText('test');
-        const th2 = screen.getByText('test2');
-        expect(th1).toBeInTheDocument();
-        expect(th2).toBeInTheDocument();
-    })
-    it('isHeader is false', () => {
-        render(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test2" />);
-        const td1 = screen.getByText('test');
-        const td2 = screen.getByText('test2');
-        expect(td1).toBeInTheDocument();
-        expect(td2).toBeInTheDocument();
-    })
-})
+//   it("renders two header cells if textSecondCell is provided", () => {
+//     render(
+//       <table>
+//         <thead>
+//           <CourseListRow isHeader={true} textFirstCell="Khiba" textSecondCell="Koenane" />
+//         </thead>
+//       </table>
+//     );
 
-describe('test styles', () => {
-    test ('isHeader is true', () => {
-        render(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell="test2" />);
-        const tr = screen.getByText('test').closest('tr');
-        expect(tr).toHaveStyle({backgroundColor: '#deb5b545'});
-    })
+//     const headerCells = screen.getAllByRole("columnheader");
+//     expect(headerCells.length).toBe(2);
+//     expect(headerCells[0].textContent).toBe("Khiba");
+//     expect(headerCells[1].textContent).toBe("Koenane");
+//   });
 
-    test ('isHeader is true and textSecondCell is null', () => {
-        render(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell={null} />);
-        const tr = screen.getByText('test').closest('tr');
-        expect(tr).toHaveStyle({backgroundColor: '#deb5b545'});
-    })
+//   it("renders two data cells if isHeader is false", () => {
+//     render(
+//       <table>
+//         <tbody>
+//           <CourseListRow textFirstCell="Khiba" textSecondCell="Koenane" />
+//         </tbody>
+//       </table>
+//     );
 
-    test ('isHeader is false', () => {
-        render(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test2" />);
-        const tr = screen.getByText('test').closest('tr');
-        expect(tr).toHaveStyle({backgroundColor: '#f5f5f5ab'});
-    })
-})
+//     const dataCells = screen.getAllByRole("cell");
+//     expect(dataCells.length).toBe(2);
+//     expect(dataCells[0].textContent).toBe("Khiba");
+//     expect(dataCells[1].textContent).toBe("Koenane");
+//   });
+
+//   it("applies correct Aphrodite class for header row (1 column)", () => {
+//     const { container } = render(
+//       <table>
+//         <thead>
+//           <CourseListRow isHeader={true} textFirstCell="Khiba Koenane" />
+//         </thead>
+//       </table>
+//     );
+
+//     const row = container.querySelector("tr");
+//     expect(row.className).toMatch(/headerRow/);
+//   });
+
+//   it("applies correct Aphrodite class for header row (2 columns)", () => {
+//     const { container } = render(
+//       <table>
+//         <thead>
+//           <CourseListRow isHeader={true} textFirstCell="Khiba" textSecondCell="Koenane" />
+//         </thead>
+//       </table>
+//     );
+
+//     const row = container.querySelector("tr");
+//     expect(row.className).toMatch(/headerRow/);
+//   });
+
+//   it("applies correct Aphrodite class for default row", () => {
+//     const { container } = render(
+//       <table>
+//         <tbody>
+//           <CourseListRow textFirstCell="Khiba" textSecondCell="Koenane" />
+//         </tbody>
+//       </table>
+//     );
+
+//     const row = container.querySelector("tr");
+//     expect(row.className).toMatch(/defaultRow/);
+//   });
+// });

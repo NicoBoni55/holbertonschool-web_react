@@ -1,23 +1,41 @@
-import {screen, render} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import BodySection from "./BodySection";
-import { StyleSheetTestUtils } from 'aphrodite';
 
-beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-});
+describe("BodySection Component Tests", () => {
+    
+    // Test if prop title value gets rendered 
+    it("title prop value gets rendered", () => {
+        const title = "This is the title";
 
-afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+        render(<BodySection title={title}/>);
 
-test ('renders a heading with the title "Welcome to Holberton School!"', () => {
-    render(<BodySection title="Welcome to Holberton School!" />);
-    const heading = screen.getByText("Welcome to Holberton School!", {selector: 'h2'});
-    expect(heading).toBeInTheDocument();
-})
+        // Get heading element
+        const hElement = screen.getByRole("heading", {level: 2,
+            name: /This is the title/i
+        });
 
-test ('renders any number of children', () => {
-    render(<BodySection title={"Welcome to Holberton!"} children={<p>Test</p>} />);
-    const p = screen.getByText("Test");
-    expect(p).toBeInTheDocument();
+        // Assert that the title is rendered
+        expect(hElement).toBeInTheDocument();
+    })
+
+    // Test if Body Component renders children passed to it
+    it("renders children passed to it", () => {
+        const children = (
+            <>
+                <p>Hello World</p>
+                <p>Bye World</p>
+            </>
+        )
+        const title = "This is the title";
+
+        render(<BodySection title={title}>{children}</BodySection>)
+
+        // Get paragraph elements
+        const paragraphs = screen.getAllByRole("paragraph");
+
+        // Assert existence of paragraphs
+        expect(paragraphs[0].textContent).toBe("Hello World");
+        expect(paragraphs[1].textContent).toBe("Bye World");
+
+    })
 })

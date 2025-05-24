@@ -1,30 +1,38 @@
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import NotificationItem from "./NotificationItem";
-import {render, screen} from "@testing-library/react";
-import {fireEvent} from "@testing-library/react";
-import { StyleSheetTestUtils } from 'aphrodite';
 
-beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
+describe("NotificationItem Component", () => {
+  it("has class corresponding to blue style when type is default", () => {
+    render(<NotificationItem type="default" value="New course available" id={1} markAsRead={() => {}} />);
+
+    const listElement = screen.getByTestId("item1");
+
+    // Check that the class name includes Aphrodite's generated one
+    expect(listElement).toHaveAttribute("data-notification-type", "default");
+    expect(listElement.className).toMatch(/default_/); // Aphrodite class name for blue
+  });
+
+  it("has class corresponding to red style when type is urgent", () => {
+    render(<NotificationItem type="urgent" value="New resume available" id={2} markAsRead={() => {}} />);
+
+    const listElement = screen.getByTestId("item2");
+
+    expect(listElement).toHaveAttribute("data-notification-type", "urgent");
+    expect(listElement.className).toMatch(/urgent_/); // Aphrodite class name for red
+  });
+
+  it("calls markAsRead with the correct id on click", async () => {
+    const markAsReadMock = jest.fn();
+
+    render(<NotificationItem type="urgent" value="New resume available" markAsRead={markAsReadMock} id={2} />);
+
+    const listElement = screen.getByTestId("item2");
+
+    await userEvent.click(listElement);
+
+    expect(markAsReadMock).toHaveBeenCalledTimes(1);
+    expect(markAsReadMock).toHaveBeenCalledWith(2);
+  });
 });
-
-afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
-
-test ('check li has the color blue', () => {
-    render(<NotificationItem type="default" />);
-    const liBlue = screen.getByRole("listitem");
-    expect(liBlue).toHaveAttribute("data-notification-type", "default");
-})
-test ('check li has the color red', () => {
-    render (<NotificationItem type="urgent" />);
-    const liRed = screen.getByRole("listitem");
-    expect(liRed).toHaveAttribute("data-notification-type", "urgent");
-})
-test ('check that markAsRead is called', () => {
-    const markAsRead = jest.fn();
-    render(<NotificationItem id={1} onClick={() => markAsRead(1)} />);
-    const li = screen.getByRole("listitem");
-    fireEvent.click(li);
-    expect(markAsRead).toHaveBeenCalledWith(1);
-})

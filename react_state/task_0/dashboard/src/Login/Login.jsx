@@ -1,55 +1,45 @@
-import { StyleSheet, css } from "aphrodite"
-import App from "../App/App"
-
-export default function Login() {
-    return (
-        <div className={css(styles.AppBody)}>
-        <p className={css(styles.AppP)}>Login to access the full dashboard</p>
-        <div className={css(styles.AppLogin)}>
-        <label className={css(styles.AppLabel)} htmlFor='email'>Email</label>
-        <input className={css(styles.AppInput)} type='email' id='email' placeholder='Email' />
-        <label className={css(styles.AppLabel)} htmlFor='password'>Password</label>
-        <input className={css(styles.AppInput)} type='password' id='password' placeholder='Password' />
-        <button className={css(styles.AppButton)} >OK</button>
-        </div>
-        </div>
-    )
-}
+import { StyleSheet, css } from 'aphrodite';
+import React from 'react';
 
 const styles = StyleSheet.create({
-    AppBody: {
+    body: {
         display: 'flex',
+        height: '100%',
+        padding: '0.5rem',
         flexDirection: 'column',
-        alignItems: 'left',
-        paddingTop: '0.5rem',
-        paddingLeft: '1rem',
-        paddingBottom: '25rem',
-        borderBottom: '2px solid #e0354b',
     },
-    AppLogin: {
-        display: 'flex',
-        flexDirection: 'row',
+    loginDiv: {
+        '@media (max-width: 900px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            width: '300px',
+        }
     },
-    AppLabel: {
-        fontSize: '14px',
-        marginTop: '15px',
-        marginRight: '4px',
-    },
-    AppInput: {
-        marginTop: '12px',
-        marginRight: '7px',
-        marginLeft: '5px',
-        width: '200px',
-        height: '15px',
-    },
-    AppButton: {
-        width: '50px',
-        fontSize: '10px',
-        height: '25px',
-        marginTop: '7px',
-        marginLeft: '9px',
-    },
-    AppP: {
-        fontSize: '14px',
+    btn: {
+        '@media (max-width: 900px)': {
+            width: '50px',
+        }
     }
-})
+});
+
+const Login = () => {
+    return (
+        <div className={css(styles.body)}>
+            <p>Login to access the full dashboard</p>
+
+            <div className={css(styles.loginDiv)}>
+                <span>
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" id="email" name="email" />
+                </span>
+                <span>
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" name="password" />
+                </span>
+                <button className={css(styles.btn)}>OK</button>
+            </div>
+        </div>
+    );
+};
+
+export default Login;

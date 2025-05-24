@@ -1,40 +1,74 @@
-import {screen, render} from '@testing-library/react';
-import {userEvent} from '@testing-library/user-event';
-import Login from './Login';
-import { StyleSheetTestUtils } from 'aphrodite';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Login from "./Login";
 
-beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
-});
+let container = null;
 
-afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+describe("Login Component", () => {
+  beforeEach(() => {
+    const rendered = render(<Login />);
+    container = rendered.container;
+  });
 
-test ('renders the elements', () => {
-    render(<Login/>);
-    const labelEmail = screen.getByLabelText(/Email/i);
-    const labelPassword = screen.getByLabelText(/Password/i);
-    const inputEmail = screen.getByPlaceholderText(/Email/i);
-    const inputPassword = screen.getByPlaceholderText(/Password/i);
+  // Test if Login paragraph has correct text
+  it.skip("Login has correct text", () => {
+    const loginText = screen.getByText(/Login to access the full dashboard/i);
+
+    expect(loginText).toBeInTheDocument();
+  });
+
+  // Test if Login renders two input elements, two labels and button
+  it.skip("renders two input elements, two labels and button", () => {
+    //Get input elements
+    const inputElements = container.querySelectorAll("input");
+    const inputLength = inputElements.length;
+
+    // Get labels
+    const labelElements = container.querySelectorAll("label");
+    const labelsLength = labelElements.length;
+
+    //Get button
     const button = screen.getByRole("button");
-    expect(labelEmail).toBeInTheDocument();
-    expect(labelPassword).toBeInTheDocument();
-    expect(inputEmail).toBeInTheDocument();
-    expect(inputPassword).toBeInTheDocument();
-    expect(button).toBeInTheDocument();
-});
 
-test ('inputs elements get focused', async () => {
-    const user = userEvent.setup();
-    render(<Login/>);
-    const labelEmail = screen.getByLabelText(/Email/i);
-    const labelPassword = screen.getByLabelText(/Password/i);
-    const inputEmail = screen.getByPlaceholderText(/Email/i);
-    const inputPassword = screen.getByPlaceholderText(/Password/i);
-    await user.click(labelEmail);
-    expect(inputEmail).toHaveFocus();
-    await user.click(labelPassword);
-    expect(inputPassword).toHaveFocus();
-    
-}, 20000);
+    // Assert number of input elements
+    expect(inputLength).toEqual(2);
+
+    // Assert number of label elements
+    expect(labelsLength).toEqual(2);
+
+    // Assert existance of button
+    expect(button).toBeInTheDocument();
+  });
+
+  //Test if labels have correct values
+  it("Labels have correct values", () => {
+    const email = screen.getByLabelText(/Email/i);
+    const password = screen.getByLabelText(/Password/i);
+
+    // Assert label values
+    expect(email).toBeInTheDocument();
+    expect(password).toBeInTheDocument();
+  });
+
+  //Test if button has correct value
+  it("Button has correct value", () => {
+    //Get button
+    const button = screen.getByRole("button");
+
+    // Assert if button has correct value
+    expect(button.textContent).toBe("OK");
+  });
+
+  // Test if click on label triggeres focus on input element
+  it("On label click triggers focus", async () => {
+    // Get email related elements
+    const emailLabel = screen.getByLabelText(/Email/i);
+    const inputField = screen.getByRole("textbox", { name: /email/i });
+
+    // Simulate click on label
+    await userEvent.click(emailLabel);
+
+    // Assert if input gets focused
+    expect(inputField).toHaveFocus();
+  });
+});

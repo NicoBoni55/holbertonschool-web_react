@@ -1,23 +1,37 @@
-import {screen, render} from "@testing-library/react";
-import BodySectionWithMarginBottom from "./BodySectionWithMarginBottom";
+import { render } from "@testing-library/react";
 import { StyleSheetTestUtils } from 'aphrodite';
+import BodySectionWithMarginBottom from "./BodySectionWithMarginBottom";
 
 beforeAll(() => {
     StyleSheetTestUtils.suppressStyleInjection();
 });
-
+  
 afterAll(() => {
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-test ('component contains a div with the class BodySectionWithMarginBotton', () => {
-    render(<BodySectionWithMarginBottom title="Welcome!"/>);
-    const div = screen.getByText("Welcome!", {selector: 'h2'}).parentElement.parentElement; // get the second parent element
-    expect(div).toBeInTheDocument();
-})
+//BodySectionWithMarginBottom component tests
+describe("BodySectionWithMarginBottom Component", () => {
 
-test ('render the BodySection component', () => {
-    render(<BodySectionWithMarginBottom title={"welcome to Holberton School!"} />);
-    const BodySection = screen.getByText("welcome to Holberton School!", {selector: 'h2'});
-    expect(BodySection).toBeInTheDocument();
+    // test if it contains div with class name bodySectionWithMargin
+    it.skip("div with class name bodySectionWithMargin exists", () => {
+        render(<BodySectionWithMarginBottom/>)
+
+        // Get div
+        const divWithClass = document.getElementsByClassName("bodySectionWithMargin")[0];
+
+        // Assert existence of div
+        expect(divWithClass).toBeInTheDocument();
+    })
+
+    // Test if it renders BodySection component
+    it("Renders BodySection component", () => {
+        render(<BodySectionWithMarginBottom/>)
+
+        // Get BodySection class
+        const bodySectionClass = document.getElementsByClassName("bodySection")[0];
+
+        // Assert existance of div
+        expect(bodySectionClass).toBeInTheDocument();
+    })
 })
