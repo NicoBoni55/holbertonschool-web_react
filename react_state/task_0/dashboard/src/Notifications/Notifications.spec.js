@@ -41,7 +41,7 @@ test('displayDrawer set to false', () => {
     const listItems = screen.queryAllByRole("listitem");
 
     expect(button).not.toBeInTheDocument();
-    expect(notificationText).not.toBeInTheDocument();
+    expect(notificationText).toBeInTheDocument();
     expect(listItems).toHaveLength(0);
 })
 
@@ -65,7 +65,7 @@ test('displayDrawer set to true and notifications is empty', () => {
     const listItems = screen.queryAllByRole("listitem");
 
     expect(button).not.toBeInTheDocument();
-    expect(notificationText).not.toBeInTheDocument();
+    expect(notificationText).toBeInTheDocument();
     expect(listItems).toHaveLength(0);
 })
 
@@ -92,23 +92,37 @@ test ('check that Notification component doesn´t rerender', () => {
     renderSpy.mockRestore();
 })
 
-test('check click button displays handleDisplayDrawer', () => {
+test ('check that Notification component rerender', () => {
+    const notificationsList = [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+    ];
+
+    const { rerender } = render(<Notifications notifications={notificationsList} displayDrawer={true} />);
+    const renderSpy = jest.spyOn(Notifications.prototype, 'render');
+
+    const newNotificationsList = [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+        { id: 3, type: 'urgent', value: 'New message available' },
+    ];
+    rerender(<Notifications notifications={newNotificationsList} displayDrawer={true} />);
+
+    expect(renderSpy).toHaveBeenCalled();
+    renderSpy.mockRestore();
+})
+
+test('click items calls handledisplayDrawer', () => {
     const handleDisplayDrawer = jest.fn();
-    render(<Notifications 
-        displayDrawer={false} 
-        notifications={notificationsList}
-        handleDisplayDrawer={handleDisplayDrawer} />);
+    render(<Notifications displayDrawer={false} notifications={notificationsList} handleDisplayDrawer={handleDisplayDrawer} />);
     const button = screen.getByText(/Your notifications/i);
     fireEvent.click(button);
     expect(handleDisplayDrawer).toHaveBeenCalled();
 })
 
-test('check click button displays handleHideDrawer', () => {
+test('click items calls handleHideDrawer', () => {
     const handleHideDrawer = jest.fn();
-    render(<Notifications 
-        displayDrawer={true} 
-        notifications={notificationsList}
-        handleHideDrawer={handleHideDrawer} />);
+    render(<Notifications displayDrawer={true} notifications={notificationsList} handleHideDrawer={handleHideDrawer} />);
     const button = screen.getByLabelText(/Close/i);
     fireEvent.click(button);
     expect(handleHideDrawer).toHaveBeenCalled();

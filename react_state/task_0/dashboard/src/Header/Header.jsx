@@ -16,27 +16,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: '20px',
-        width: '100vw',
-        '@media (max-width: 900px)': {
-            borderBottom: '2px solid #e0354b',
-        }
     },
     AppLogo: {
         width: '150px',
         height: '150px',
-        '@media (max-width: 900px)': {
-            width: '100px',
-            height: '100px',
-        }
     },
     AppTitle: {
         fontSize: '25px',
         fontFamily: 'sans-serif',
         marginLeft: '20px',
         color: '#e1003c',
-        '@media (max-width: 900px)': {
-            fontSize: '20px',
-            marginLeft: '10px',
-        }
     }
 });
