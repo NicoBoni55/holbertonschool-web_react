@@ -33,22 +33,17 @@ class App extends Component {
   }
 
   handleDisplayDrawer = () => {
-    console.log('Notification drawer has been opened');
     this.setState({ displayDrawer: true });
   }
 
   handleHideDrawer = () => {
-    console.log('Close button has been clicked');
     this.setState({ displayDrawer: false });
   }
-  // method to execute when the component is mounted(
-  // Ensures the DOM is fully mounted and ready for safe interaction)
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
   }
 
-  // method to execute when the component is unmounted
-  // Serves to notify that the component is about to be removed from the DOM
   componentWillUnmount(){
     document.removeEventListener('keydown', this.handleKeyPress);
   }
