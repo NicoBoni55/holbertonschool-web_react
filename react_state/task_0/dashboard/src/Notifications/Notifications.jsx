@@ -23,39 +23,38 @@ class Notifications extends Component {
         return (
             <>
             <div
-             className='notifications-title'
-            >
-                <p onClick={handleDisplayDrawer}>Your notifications</p>
+             className='notifications-title' onClick={handleDisplayDrawer}>
+                <p>Your notifications</p>
             </div>
 
-            <div className={css(styles.notifications)}>
-                {notifications.length === 0 ?(
-                    <p>No new Notification for now</p>
-                ): displayDrawer === false ? (
-                    <p>Here is the list of notifications</p>
-                ) : (
-                    <>
-                        <p>Here is the list of notifications</p>
-                        <button
-                            className={css(styles.closeButton)}
-                            aria-label='Close' 
-                            onClick={handleHideDrawer}>
-                                <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
-                        </button>
-                        <ul>
-                            {notifications.map((notification) => (
-                                <NotificationItem
-                                key={notification.id}
-                                type={notification.type}
-                                value={notification.value}
-                                html={notification.html}
-                                onClick={() =>(this.markAsRead(notification.id))}
-                                />
-                            ))}
-                        </ul>
-                    </>
-                )}
-            </div>
+            {displayDrawer && (
+                <div className={css(styles.notifications)}>
+                    {notifications.length === 0 ?(
+                        <p>No new Notification for now</p>
+                    ) : (
+                        <>
+                            <p>Here is the list of notifications</p>
+                            <button
+                                className={css(styles.closeButton)}
+                                aria-label='Close' 
+                                onClick={handleHideDrawer}>
+                                    <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
+                            </button>
+                            <ul>
+                                {notifications.map((notification) => (
+                                    <NotificationItem
+                                    key={notification.id}
+                                    type={notification.type}
+                                    value={notification.value}
+                                    html={notification.html}
+                                    onClick={() =>(this.markAsRead(notification.id))}
+                                    />
+                                ))}
+                            </ul>
+                        </>
+                    )}
+                </div>
+            )}
         </>
         )
     }

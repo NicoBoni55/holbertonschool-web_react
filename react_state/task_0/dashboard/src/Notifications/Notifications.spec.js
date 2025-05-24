@@ -41,7 +41,7 @@ test('displayDrawer set to false', () => {
     const listItems = screen.queryAllByRole("listitem");
 
     expect(button).not.toBeInTheDocument();
-    expect(notificationText).toBeInTheDocument();
+    expect(notificationText).not.toBeInTheDocument();
     expect(listItems).toHaveLength(0);
 })
 
