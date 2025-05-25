@@ -1,0 +1,14 @@
+.App-footer {
+    display: flex;
+    justify-content: center;
+  }
+@media (max-width: 900px) {
+    .App-footer {
+        justify-content: left;
+        padding-left: 10px;
+    }
+}
+  .App-footer p {
+    margin-top: 15px;
+    font-size: 14px;
+}
