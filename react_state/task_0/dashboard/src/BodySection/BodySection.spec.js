@@ -1,23 +1,28 @@
-import {screen, render} from "@testing-library/react";
-import BodySection from "./BodySection";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import BodySection from './BodySection';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
+  StyleSheetTestUtils.suppressStyleInjection();
 });
 
 afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-test ('renders a heading with the title "Welcome to Holberton School!"', () => {
-    render(<BodySection title="Welcome to Holberton School!" />);
-    const heading = screen.getByText("Welcome to Holberton School!", {selector: 'h2'});
-    expect(heading).toBeInTheDocument();
-})
+describe('<BodySection />', () => {
+  test('renders a heading and children', () => {
+    render(
+      <BodySection title="test title">
+        <p>test children node</p>
+      </BodySection>
+    );
 
-test ('renders any number of children', () => {
-    render(<BodySection title={"Welcome to Holberton!"} children={<p>Test</p>} />);
-    const p = screen.getByText("Test");
-    expect(p).toBeInTheDocument();
-})
+    const heading = screen.getByRole('heading', { name: /test title/i });
+    const paragraph = screen.getByText(/test children node/i);
+
+    expect(heading).toBeInTheDocument();
+    expect(paragraph).toBeInTheDocument();
+  });
+});

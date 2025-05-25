@@ -1,79 +1,64 @@
-import { StyleSheet, css } from "aphrodite"
-import App from "../App/App"
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
 
-export default function Login() {
+class Login extends React.Component {
+  render() {
     return (
-        <div className={css(styles.AppBody)}>
-        <p className={css(styles.AppP)}>Login to access the full dashboard</p>
-        <div className={css(styles.AppLogin)}>
-        <div className={css(styles.AppSmall)}>
-        <label className={css(styles.AppLabel)} htmlFor='email'>Email</label>
-        <input className={css(styles.AppInput)} type='email' id='email' placeholder='Email' />
+      <div className={css(styles.body)}>
+        <p>Login to access the full dashboard</p>
+        <div className={css(styles.inputGroup)}>
+          <label htmlFor="email">Email:</label>
+          <input id="email" type="email" className={css(styles.input)} />
         </div>
-        <div className={css(styles.AppSmall)}>
-        <label className={css(styles.AppLabel)} htmlFor='password'>Password</label>
-        <input className={css(styles.AppInput)} type='password' id='password' placeholder='Password' />
+        <div className={css(styles.inputGroup)}>
+          <label htmlFor="password">Password:</label>
+          <input id="password" type="password" className={css(styles.input)} />
         </div>
-        <button className={css(styles.AppButton)} >OK</button>
+        <div className={css(styles.buttonWrapper)}>
+          <button className={css(styles.button)}>OK</button>
         </div>
-        </div>
-    )
+      </div>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    AppBody: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'left',
-        fontWeight: '600',
-        paddingBottom: '25rem',
-        borderBottom: '2px solid #e0354b',
+  body: {
+    padding: '30px',
+    '@media (max-width: 900px)': {
+      padding: '20px',
+    },
+  },
+  inputGroup: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '1em',
+    '@media (max-width: 900px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+  input: {
+    marginLeft: '10px',
+    '@media (max-width: 900px)': {
+      marginLeft: '0',
+      marginTop: '5px',
+      width: '100%',
+    },
+  },
+  buttonWrapper: {
+    '@media (max-width: 900px)': {
+      display: 'flex',
+      justifyContent: 'flex-start',
+    },
+  },
+  button: {
+    marginLeft: '10px',
+    '@media (max-width: 900px)': {
+      marginLeft: '0',
+    },
+  },
+});
 
-    },
-    AppLogin: {
-        display: 'flex',
-        flexDirection: 'row',
-        '@media (max-width: 900px)': {
-            flexDirection: 'column',
-            alignItems: 'left',
-        }
-    },
-    AppLabel: {
-        fontSize: '14px',
-        marginTop: '15px',
-        marginRight: '4px',
-        '@media (max-width: 900px)': {
-            display: 'flex',
-            flexDirection: 'row',
-        },
-    },
-    AppInput: {
-        marginTop: '12px',
-        marginRight: '7px',
-        marginLeft: '5px',
-        width: '200px',
-        height: '15px',
-    },
-    AppButton: {
-        width: '50px',
-        fontSize: '10px',
-        height: '25px',
-        marginTop: '7px',
-        marginLeft: '9px',
-        '@media (max-width: 900px)' : {
-            marginLeft: '0px',
-            marginTop: '15px',
-            border: '2px solid #FFDE59',
-        }
-    },
-    AppSmall: {
-        '@media (max-width: 900px)': {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'left',
-        }
-    },
-    AppP: {
-        fontSize: '14px',
-    }
-})
+export default Login;

@@ -1,42 +1,50 @@
-import CourseListRow from "./CourseListRow"
-import { StyleSheet, css } from "aphrodite"
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
+import CourseListRow from './CourseListRow';
 
-export default function CourseList({courses=[]}) {
+class CourseList extends React.Component {
+  static defaultProps = {
+    courses: [],
+  };
+
+  render() {
+    const { courses } = this.props;
+
     return (
-        <table className={css(styles.table)} id="CourseList">
-            {courses.length > 0 && (
-                <thead>
-                    <CourseListRow isHeader={true} textFirstCell={"Available courses"} />
-                    <CourseListRow isHeader={true} textFirstCell={"Course name"} textSecondCell={"Credit"} />
-                </thead>
-            )}
+      <table className={css(styles.courseList)}>
+        {courses.length > 0 ? (
+          <>
+            <thead>
+              <CourseListRow isHeader={true} textFirstCell="Available courses" />
+              <CourseListRow isHeader={true} textFirstCell="Course name" textSecondCell="Credit" />
+            </thead>
             <tbody>
-                {courses.length === 0 ? (
-                    <tr className={css(styles.noCourse)}>
-                        <td>No course available yet</td>                        
-                    </tr>
-                    ) : (
-                        courses.map((course)=> {
-                            return <CourseListRow
-                            key={course.id}
-                            textFirstCell={course.name} 
-                            textSecondCell={course.credit}/>
-                        })
-                    )}
-                </tbody>
-        </table>
-    )
+              {courses.map((course) => (
+                <CourseListRow
+                  key={course.id}
+                  textFirstCell={course.name}
+                  textSecondCell={course.credit}
+                />
+              ))}
+            </tbody>
+          </>
+        ) : (
+          <tbody>
+            <CourseListRow isHeader={true} textFirstCell="No course available yet" />
+          </tbody>
+        )}
+      </table>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    table: {
-        border: '1px solid black',
-        borderCollapse: 'collapse',
-        width: '100%',
-        margin_top: '20px',
-    },
-    noCourse: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-    }
-})
+  courseList: {
+    width: '100%',
+    border: '1px solid #ddd',
+    marginTop: '30px',
+    borderCollapse: 'collapse',
+  },
+});
+
+export default CourseList;

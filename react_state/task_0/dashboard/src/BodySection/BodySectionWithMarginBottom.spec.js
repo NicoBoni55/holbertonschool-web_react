@@ -1,23 +1,25 @@
-import {screen, render} from "@testing-library/react";
-import BodySectionWithMarginBottom from "./BodySectionWithMarginBottom";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeAll(() => {
-    StyleSheetTestUtils.suppressStyleInjection();
+  StyleSheetTestUtils.suppressStyleInjection();
 });
 
 afterAll(() => {
-    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
 });
 
-test ('component contains a div with the class BodySectionWithMarginBotton', () => {
-    render(<BodySectionWithMarginBottom title="Welcome!"/>);
-    const div = screen.getByText("Welcome!", {selector: 'h2'}).parentElement.parentElement; // get the second parent element
-    expect(div).toBeInTheDocument();
-})
+describe('<BodySectionWithMarginBottom />', () => {
+  test('renders the correct title and content', () => {
+    render(
+      <BodySectionWithMarginBottom title="test title">
+        <p>test children node</p>
+      </BodySectionWithMarginBottom>
+    );
 
-test ('render the BodySection component', () => {
-    render(<BodySectionWithMarginBottom title={"welcome to Holberton School!"} />);
-    const BodySection = screen.getByText("welcome to Holberton School!", {selector: 'h2'});
-    expect(BodySection).toBeInTheDocument();
-})
+    expect(screen.getByText(/test title/i)).toBeInTheDocument();
+    expect(screen.getByText(/test children node/i)).toBeInTheDocument();
+  });
+});
