@@ -50,7 +50,7 @@ class App extends Component {
   
   return (
     <div className={css(styles.App)}>
-      <Notifications notifications={notificationsList} displayDrawer={true} />
+      <Notifications notifications={notificationsList} displayDrawer={false} />
       <Header />
       {isLoggedIn === false ? (
         <BodySectionWithMarginBottom title={"Log in to continue"}>
@@ -62,7 +62,7 @@ class App extends Component {
           </BodySectionWithMarginBottom>
       )}
       <BodySection title={"News from the School"} className={css(styles.body)}>
-        <p className={css(styles.p)}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio explicabo dolore nam officiis, libero cupiditate animi excepturi pariatur ab similique molestias omnis architecto eveniet obcaecati, dicta quos itaque beatae aperiam!</p>
+        <p>Holberton School News goes here</p>
       </BodySection>
       <div className={css(styles.footer)}>
         <Footer />
@@ -81,29 +81,14 @@ const styles = StyleSheet.create({
   App: {
     margin: 0,
     padding: 0,
-    '@media (max-width: 900px)': {
-      margin: '0 10px',
-      padding: '0 20px',
-    }
   },
   body: {
     fontSize: '20px',
-    '@media (max-width: 900px)': {
-      textAlign: 'center',
-      padding: '0 10px 0 10px',
-    }
   },
   footer: {
     fontSize: '20px',
     textAlign: 'center',
     marginTop: '20px',
-  },
-  p: {
-    '@media (max-width: 900px)': {
-      fontSize: 'clamp(17px, 2.5vw,)',
-      textAlign: 'left',
-      margin: '0 10px',
-    }
   }
 })
 

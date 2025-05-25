@@ -4,174 +4,138 @@ import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 class Notifications extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isVisible: false,
-        };
-    }
 
     markAsRead = (id) => {
         console.log(`Notification ${id} has been marked as read`)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         return (
             this.props.notifications.length !== nextProps.notifications.length ||
-            this.state.isVisible !== nextState.isVisible);
-    }
-
-    toggleVisibility = () => {
-        console.log('Toggle function has been called');
-        this.setState((prevState) => ({
-            isVisible: !prevState.isVisible,
-        }));
+            this.props.displayDrawer !== nextProps.displayDrawer);
     }
 
     render () {
-    const {notifications, displayDrawer} = this.props;
-    const {isVisible} = this.state;
-
-    console.log("isVisible", isVisible);
+    const {notifications} = this.props;
+    const {displayDrawer} = this.props;
+    const {handleDisplayDrawer} = this.props;
+    const {handleHideDrawer} = this.props;
         return (
             <>
-
-                <div className={css(styles.notificationTitle)}>
-                <p className={css(styles.clickable)} onClick={this.toggleVisibility}>Your notifications</p>
-            </div>
-
-            {(displayDrawer || isVisible) && (
-                <div className={css(
-                    styles.notifications, 
-                    isVisible  && styles.mobileNotifications
-                )}>
-                    {notifications.length === 0 ?(
-                        <p>No new Notification for now</p>
-                    ) : (
-                        <>
-                            <p>Here is the list of notifications</p>
-                            <button
-                                className={css(styles.closeButton)}
-                                aria-label='Close' 
-                                onClick={this.toggleVisibility}>
-                                    <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
-                            </button>
-                            <ul className={css(styles.ul)}>
-                                {notifications.map((notification) => (
-                                    <NotificationItem 
-                                        key={notification.id}
-                                        type={notification.type}
-                                        value={notification.value}
-                                        html={notification.html}
-                                        onClick={() =>(this.markAsRead(notification.id))}
-                                    />
-                                ))}
-                            </ul>
-                        </>
-                    )}
+            {!displayDrawer && (
+                <div
+                 className={css(styles.title)}
+                 onClick={handleDisplayDrawer}
+                >
+                    <p>Your notifications</p>
                 </div>
             )}
-        </>
-        )
+        {displayDrawer && (
+                    <div className={css(styles.notifications)}>
+                        <button
+                            className={css(styles.closeButton)}
+                            aria-label="Close"
+                            onClick={handleHideDrawer}
+                        >
+                            <img 
+                                className={css(styles.closeIcon)} 
+                                src={closeIcon} 
+                                alt="close-icon" 
+                            />
+                        </button>
+                        
+                        {notifications.length === 0 ? (
+                            <p>No new notification for now</p>
+                        ) : (
+                            <>
+                                <p>Here is the list of notifications</p>
+                                <ul>
+                                    {notifications.map((notification) => (
+                                        <NotificationItem
+                                            key={notification.id}
+                                            type={notification.type}
+                                            value={notification.value}
+                                            html={notification.html}
+                                            onClick={() => this.markAsRead(notification.id)}
+                                        />
+                                    ))}
+                                </ul>
+                            </>
+                        )}
+                    </div>
+                )}
+            </>
+        );
     }
 }
+
 
 Notifications.defaultProps = {
     displayDrawer: false,
     notifications: [],
-
+    handleDisplayDrawer: () => {},
+    handleHideDrawer: () => {},
 }
 
-const opacity = {
-    '0%': {
-        opacity: 0.5,
-    },
-    '100%': {
-        opacity: 1,
-    }
+const opacityAnim = {
+    from: { opacity: 0.5 },
+    to: { opacity: 1 }
 };
 
-const bounce = {
-    '0%': {
-        transform: 'translateY(0px)',
-    },
-    '50%': {
-        transform: 'translateY(-5px)',
-    },
-    '100%': {
-        transform: 'translateY(5px)',
-    },
+const bounceAnim = {
+  '0%': { translate: '0px 0px' },
+  '50%': { translate: '0px -5px' },
+  '100%': { translate: '0px 5px' },
 };
 
 const styles = StyleSheet.create({
-    notifications: {
+  title: {
+    float: 'right',
+    backgroundColor: '#fff8f8',
+    padding: '8px',
+    cursor: 'pointer',
+    position: 'relative',
+    zIndex: 100,
+    ':hover': {
+      animationName: [bounceAnim, opacityAnim],
+      animationDuration: '0.5s',
+      animationIterationCount: 3,
+      cursor: 'pointer',
+    },
+  },
+   notifications: {
         border: '2px dotted #e1003c',
-        paddingLeft: '10px',
-        fontSize: '14px',
-        fontFamily: 'sans-serif',
-        '@media (max-width: 900px)' : {
-            display: 'none'
-        }
-    },
-    mobileNotifications: {
-        '@media (max-width: 900px)' : {
-            display: 'flex',
+        padding: '10px',
+        float: 'right',
+        backgroundColor: 'white',
+        position: 'relative',
+        zIndex: 10,
+        '@media (max-width: 900px)': {
+            width: '100%',
+            padding: '0',
             border: 'none',
-            flexDirection: 'column',
-            justifyContent: 'left',
-            alignItems: 'left',
-            paddingRight: '30px',
-            paddingLeft: '30px',
-            paddingTop: '20px',
-            paddingBottom: '20px',
-            border: '2px dotted grey',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'white',
+            zIndex: 1000,
         }
     },
+    
     closeButton: {
-        position: 'absolute',
-        top: '20px',
-        right: '15px',
+        background: 'transparent',
         border: 'none',
+        position: 'absolute',
+        right: '10px',
+        top: '10px',
         cursor: 'pointer',
-        backgroundColor: 'transparent',
-         '@media (max-width: 900px)' : {
-            top: '75px',
-            right: '30px',
-        }
     },
+    
     closeIcon: {
-        width: '10px',
-        height: '10px',
-    },
-    ul: {
-        '@media (max-width: 900px)' : {
-            padding: '10px',
-        }
-    },
-    notificationTitle: {
-        display: 'flex',
-        width: '100wh',
-        justifyContent: 'left',
-        ':hover': {
-            animationName: [opacity, bounce],
-            animationDuration: '0.5s',
-            animationIterationCount: '3',
-        },
-        '@media (max-width: 900px)' : {
-            display: 'flex',
-            justifyContent: 'right',
-            paddingright: '10px',
-            margin: '10px',
-            width: '100wh',
-        }
-    },
-    clickable: {
-        cursor: 'pointer',
-    },
-    bounce: {
-
+        width: '15px',
+        height: '15px',
     }
 });
-
-
 export default Notifications;

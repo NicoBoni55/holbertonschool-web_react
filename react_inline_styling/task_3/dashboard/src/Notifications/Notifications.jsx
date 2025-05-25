@@ -2,69 +2,47 @@ import closeIcon from '../assets/close-button.png';
 import NotificationItem from './NotificationItem';
 import { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { nominalTypeHack } from 'prop-types';
 
 class Notifications extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isVisible: false,
-        };
-    }
 
     markAsRead = (id) => {
         console.log(`Notification ${id} has been marked as read`)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (
-            this.props.notifications.length !== nextProps.notifications.length ||
-            this.state.isVisible !== nextState.isVisible);
-    }
-
-    toggleVisibility = () => {
-        console.log('Toggle function has been called');
-        this.setState((prevState) => ({
-            isVisible: !prevState.isVisible,
-        }));
+    shouldComponentUpdate(nextProps) {
+        return (this.props.notifications.length !== nextProps.notifications.length);
     }
 
     render () {
-    const {notifications, displayDrawer} = this.props;
-    const {isVisible} = this.state;
-
-    console.log("isVisible", isVisible);
+    const {notifications} = this.props;
+    const {displayDrawer} = this.props;
         return (
             <>
-
-                <div className={css(styles.notificationTitle)}>
-                <p className={css(styles.clickable)} onClick={this.toggleVisibility}>Your notifications</p>
+            <div className={css(styles.notificationTitle)}>
+                <p>Your notifications</p>
             </div>
 
-            {(displayDrawer || isVisible) && (
-                <div className={css(
-                    styles.notifications, 
-                    isVisible  && styles.mobileNotifications
-                )}>
+            {(displayDrawer) && (
+                <div className={css(styles.notifications)}>
                     {notifications.length === 0 ?(
-                        <p>No new Notification for now</p>
+                     <p>No new Notification for now</p>
                     ) : (
                         <>
-                            <p>Here is the list of notifications</p>
+                            <p className={css(styles.title)}>Here is the list of notifications</p>
                             <button
                                 className={css(styles.closeButton)}
                                 aria-label='Close' 
-                                onClick={this.toggleVisibility}>
+                                onClick={() => console.log('Close button has been clicked')}>
                                     <img className={css(styles.closeIcon)} src={closeIcon} alt='close-icon'></img>
                             </button>
                             <ul className={css(styles.ul)}>
                                 {notifications.map((notification) => (
-                                    <NotificationItem 
-                                        key={notification.id}
-                                        type={notification.type}
-                                        value={notification.value}
-                                        html={notification.html}
-                                        onClick={() =>(this.markAsRead(notification.id))}
+                                    <NotificationItem
+                                    key={notification.id}
+                                    type={notification.type}
+                                    value={notification.value}
+                                    html={notification.html}
+                                    onClick={() =>(this.markAsRead(notification.id))}
                                     />
                                 ))}
                             </ul>
@@ -72,7 +50,8 @@ class Notifications extends Component {
                     )}
                 </div>
             )}
-        </>
+            </>
+                
         )
     }
 }
@@ -89,17 +68,17 @@ const styles = StyleSheet.create({
         paddingLeft: '10px',
         fontSize: '14px',
         fontFamily: 'sans-serif',
-        '@media (max-width: 900px)' : {
-            display: 'none'
-        }
-    },
-    mobileNotifications: {
-        '@media (max-width: 900px)' : {
-            display: 'flex',
+        '@media (max-width: 900px)': {
+            width: '100vw',
+            position: 'absolute',
+            left: '0',
+            top: '0',
+            right: '0',
+            backgroundColor: 'white',
+            height: '100vh',
+            overflowY: 'auto',
+            padding: '10px',
             border: 'none',
-            flexDirection: 'column',
-            justifyContent: 'left',
-            alignItems: 'center',
         }
     },
     closeButton: {
@@ -109,9 +88,9 @@ const styles = StyleSheet.create({
         border: 'none',
         cursor: 'pointer',
         backgroundColor: 'transparent',
-         '@media (max-width: 900px)' : {
-            top: '100px',
-            right: '10px',
+        '@media (max-width: 900px)': {
+            top: '10px',
+            right: '50px',
             backgroundColor: 'grey',
         }
     },
@@ -119,23 +98,30 @@ const styles = StyleSheet.create({
         width: '10px',
         height: '10px',
     },
-    ul: {
-        '@media (max-width: 900px)' : {
-            padding: '0',
-            listStyleType: 'none',
-        }
-    },
     notificationTitle: {
         '@media (max-width: 900px)' : {
             display: 'flex',
+            border: 'none',
             justifyContent: 'right',
-            margin: '10px',
-            width: '100wh',
+            alignItems: 'center',
         }
     },
-    clickable: {
-        cursor: 'pointer',
+    ul: {
+        '@media (max-width: 900px)': {
+            padding: '0',
+            fontSize: '20px',
+            listStyleType: 'none',
+
+        }
+    },
+    title: {
+        '@media (max-width: 900px)': {
+            fontSize: '18px',
+            textAlign: 'left',
+            fontWeight: 'bold',
+        },
     }
+
 });
 
 

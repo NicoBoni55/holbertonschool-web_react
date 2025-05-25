@@ -25,6 +25,19 @@ const LoginWithLogging = WithLogging(Login);
 const CourseListWithLogging = WithLogging(CourseList);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayDrawer: false,
+    }
+  }
+
+  handleDisplayDrawer = () => {
+    this.setState({ displayDrawer: true });
+  }
+  handleHideDrawer = () => {
+    this.setState({ displayDrawer: false });
+  }
   // method to execute when the component is mounted(
   // Ensures the DOM is fully mounted and ready for safe interaction)
   componentDidMount() {
@@ -45,12 +58,18 @@ class App extends Component {
   }
 
   render () {
-  const {isLoggedIn} = this.props;
-  const {logOut} = this.props;
+  const {isLoggedIn, logOut} = this.props;
+  const {displayDrawer} = this.state;
   
   return (
     <div className={css(styles.App)}>
-      <Notifications notifications={notificationsList} displayDrawer={true} />
+      <div className={css(styles.rootNotifications)}>
+        <Notifications 
+        notifications={notificationsList}
+        displayDrawer={displayDrawer}
+        handleDisplayDrawer={this.handleDisplayDrawer}
+        handleHideDrawer={this.handleHideDrawer} />
+      </div>
       <Header />
       {isLoggedIn === false ? (
         <BodySectionWithMarginBottom title={"Log in to continue"}>
@@ -62,7 +81,7 @@ class App extends Component {
           </BodySectionWithMarginBottom>
       )}
       <BodySection title={"News from the School"} className={css(styles.body)}>
-        <p className={css(styles.p)}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio explicabo dolore nam officiis, libero cupiditate animi excepturi pariatur ab similique molestias omnis architecto eveniet obcaecati, dicta quos itaque beatae aperiam!</p>
+        <p>Holberton School News goes here</p>
       </BodySection>
       <div className={css(styles.footer)}>
         <Footer />
@@ -80,32 +99,21 @@ App.defaultProps = {
 const styles = StyleSheet.create({
   App: {
     margin: 0,
-    paddingLeft: '25px',
-    '@media (max-width: 900px)': {
-      paddingLeft: '0px',
-      margin: '0',
-      padding: '0 20px',
-    }
+    padding: 0,
   },
   body: {
     fontSize: '20px',
-    '@media (max-width: 900px)': {
-      textAlign: 'center',
-      padding: '0 10px 0 10px',
-    }
   },
   footer: {
     fontSize: '20px',
     textAlign: 'center',
     marginTop: '20px',
   },
-  p: {
+  rootNotifications: {
     '@media (max-width: 900px)': {
-      fontSize: 'clamp(17px, 2.5vw,)',
-      textAlign: 'left',
-      margin: '0 10px',
-    }
+      order: -1,
   }
+}
 })
 
 export default App

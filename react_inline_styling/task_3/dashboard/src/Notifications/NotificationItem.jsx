@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
     li: {
         cursor: 'pointer',
         '@media (max-width: 900px)': {
-            margin: '7px',
-            marginBottom: '7px',
+            width: '100vw',
             borderBottom: '1px solid black',
+            fontSize: '20px',
+            padding: '10px 8px',
         }
     }
 });

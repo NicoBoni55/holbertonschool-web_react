@@ -1,71 +1,79 @@
 import { StyleSheet, css } from "aphrodite"
+import App from "../App/App"
 
 export default function Login() {
     return (
-        <div className={css(styles.LoginBody)}>
-        <p className={css(styles.LoginP)}>Login to access the full dashboard</p>
-        <div className={css(styles.AppLogin, styles.LoginSmall)}>
-        <label className={css(styles.LoginLabel)} htmlFor='email'>Email</label>
-        <input className={css(styles.LoginInput)} type='email' id='email' placeholder='Email' />
-        <label className={css(styles.LoginLabel)} htmlFor='password'>Password</label>
-        <input className={css(styles.LoginInput)} type='password' id='password' placeholder='Password' />
-        <button className={css(styles.LoginButton)} >OK</button>
+        <div className={css(styles.AppBody)}>
+        <p className={css(styles.AppP)}>Login to access the full dashboard</p>
+        <div className={css(styles.AppLogin)}>
+        <div className={css(styles.AppSmall)}>
+        <label className={css(styles.AppLabel)} htmlFor='email'>Email</label>
+        <input className={css(styles.AppInput)} type='email' id='email' placeholder='Email' />
+        </div>
+        <div className={css(styles.AppSmall)}>
+        <label className={css(styles.AppLabel)} htmlFor='password'>Password</label>
+        <input className={css(styles.AppInput)} type='password' id='password' placeholder='Password' />
+        </div>
+        <button className={css(styles.AppButton)} >OK</button>
         </div>
         </div>
     )
 }
 
 const styles = StyleSheet.create({
-    LoginBody: {
+    AppBody: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'left',
-        paddingTop: '0.5rem',
+        fontWeight: '600',
         paddingBottom: '25rem',
         borderBottom: '2px solid #e0354b',
-        '@media (max-width: 900px)': {
-            borderBottom: 'none',
-            paddingBottom: '3rem',
-            alignItems: 'left',
-        }
+
     },
     AppLogin: {
         display: 'flex',
         flexDirection: 'row',
+        '@media (max-width: 900px)': {
+            flexDirection: 'column',
+            alignItems: 'left',
+        }
     },
-    LoginLabel: {
+    AppLabel: {
         fontSize: '14px',
         marginTop: '15px',
         marginRight: '4px',
+        '@media (max-width: 900px)': {
+            display: 'flex',
+            flexDirection: 'row',
+        },
     },
-    LoginInput: {
+    AppInput: {
         marginTop: '12px',
         marginRight: '7px',
         marginLeft: '5px',
         width: '200px',
         height: '15px',
     },
-    LoginButton: {
-        border: '2px solid #FFDE59',
+    AppButton: {
         width: '50px',
         fontSize: '10px',
         height: '25px',
         marginTop: '7px',
-        marginLeft: '8px',
+        marginLeft: '9px',
         '@media (max-width: 900px)' : {
-            marginLeft: '5px',
-            marginTop: '15px'
+            marginLeft: '0px',
+            marginTop: '15px',
+            border: '2px solid #FFDE59',
         }
     },
-    LoginP: {
-        fontSize: '14px',
-    },
-
-    LoginSmall: {
+    AppSmall: {
         '@media (max-width: 900px)': {
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'left',
         }
+    },
+    AppP: {
+        fontSize: '14px',
     }
 })

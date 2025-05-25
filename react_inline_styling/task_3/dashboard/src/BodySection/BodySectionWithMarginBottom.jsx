@@ -14,12 +14,7 @@ function BodySectionWithMarginBottom({title, children}) {
 const styles = StyleSheet.create({
     bodySectionWithMargin: {
         marginBottom: '40px',
-    '@media (max-width: 900px)': {
-        alignItems: 'left',
-        marginLeft: '10px',
-        maxWidth: '100%',
     }
-}
 });
 
 export default BodySectionWithMarginBottom;
