@@ -10,9 +10,13 @@ class Notifications extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return (
-            this.props.notifications.length !== nextProps.notifications.length ||
-            this.props.displayDrawer !== nextProps.displayDrawer);
+        if (nextProps.displayDrawer !== this.props.displayDrawer) {
+            return true;
+        }
+        if (nextProps.notifications.length !== this.props.notifications.length) {
+            return true;
+        }
+        return false;
     }
 
     render () {
