@@ -10,14 +10,34 @@ class Notifications extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if (nextProps.displayDrawer !== this.props.displayDrawer) {
-            return true;
-        }
-        if (nextProps.notifications.length !== this.props.notifications.length) {
-            return true;
-        }
-        return false;
+    // Always update if displayDrawer changes
+    if (nextProps.displayDrawer !== this.props.displayDrawer) {
+        return true;
     }
+    
+    // If notifications length changed (added or removed notifications)
+    if (nextProps.notifications.length !== this.props.notifications.length) {
+        return true;
+    }
+    
+    // Check if any notification content has changed
+    if (nextProps.notifications.length > 0) {
+        // Compare at least one notification to see if it's different
+        // This covers the case when notifications are modified
+        const currentNotification = this.props.notifications[0];
+        const nextNotification = nextProps.notifications[0];
+        
+        if (currentNotification && nextNotification) {
+            if (currentNotification.id !== nextNotification.id ||
+                currentNotification.type !== nextNotification.type ||
+                currentNotification.value !== nextNotification.value) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
 
     render () {
     const {notifications} = this.props;
