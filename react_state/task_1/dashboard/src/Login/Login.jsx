@@ -22,7 +22,7 @@ class Login extends React.Component {
     const email = e.target.value;
     const { password } = this.state;
 
-    const validEmail = /\S+@\S+\.\S+/.test(email);
+    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
     const validPassword = password.length >= 8;
     this.setState({
        email,
@@ -34,7 +34,7 @@ class Login extends React.Component {
     const password = e.target.value;
     const { email } = this.state;
 
-    const validEmail = /\S+@\S+\.\S+/.test(email);
+    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
     const validPassword = password.length >= 8;
     this.setState({
        password,
