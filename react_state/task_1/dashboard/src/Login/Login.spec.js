@@ -52,10 +52,23 @@ test('button is disabled by default', () => {
 
 test('button is enabled when email and password are valid', () => {
   render(<Login />);
-  const email = screen.getByLabelText(/email/i);
-  const password = screen.getByLabelText(/password/i);
+  const emailInput = screen.getByLabelText(/email/i);
+  const passwordInput = screen.getByLabelText(/password/i);
   const button = screen.getByRole('button', { name: /ok/i });
-  fireEvent.change(email, {target: { value: 'example@gmail.com'}})
-  fireEvent.change(password, {target: { value: 'password123'}});
+
+  fireEvent.change(emailInput, { target: { value: ''}});
+  fireEvent.change(passwordInput, { target: { value: '' }});
+  expect(button).toBeDisabled();
+
+  fireEvent.change(emailInput, { target: { value: 'hola' }});
+  fireEvent.change(passwordInput, { target: { value: '12345678' }});
+  expect(button).toBeDisabled();
+
+  fireEvent.change(emailInput, { target: { value: 'example@gmail.com' }});
+  fireEvent.change(passwordInput, { target: { value: '1234' }});
+  expect(button).toBeDisabled();
+
+  fireEvent.change(emailInput, { target: { value: 'example@gmail.com' }});
+  fireEvent.change(passwordInput, { target: { value: '12345678' }});
   expect(button).toBeEnabled();
 });
