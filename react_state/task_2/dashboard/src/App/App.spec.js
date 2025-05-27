@@ -36,6 +36,16 @@ describe('App component', () => {
     alertMock.mockRestore();
   });
 
+  test('displays "Course list" when isLoggedIn is true', () => {
+    render(<App isLoggedIn={true} />);
+    expect(screen.getByText(/Course list/i)).toBeInTheDocument();
+  });
+
+  test('displays "Log in to continue" when isLoggedIn is false', () => {
+    render(<App isLoggedIn={false} />);
+    expect(screen.getByText(/Log in to continue/i)).toBeInTheDocument();
+  });
+
   test('displays News from the School and its paragraph', () => {
     render(<App />);
     expect(screen.getByText(/News from the School/i)).toBeInTheDocument();

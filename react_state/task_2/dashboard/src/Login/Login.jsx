@@ -119,12 +119,10 @@ const styles = StyleSheet.create({
 
 Login.propTypes = {
   logIn: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool,
 };
 
 Login.defaultProps = {
   logIn: () => {},
-  isLoggedIn: false,
 };
 
 export default Login;
