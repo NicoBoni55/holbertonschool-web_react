@@ -1,13 +1,17 @@
-import { createContext } from 'react';
+import { eventMap } from "@testing-library/user-event/dist/cjs/event/eventMap.js";
+import React from "react";
 
-export const user = {
-  email: '',
-  password: '',
-  isLoggedIn: false,
+const user = {
+    email: '',
+    password: '',
+    isLoggedIn: false,
 };
 
-export const logOut = () => {};
+const logOut = () => {};
 
-const newContext = createContext({ user, logOut });
+const newContext = React.createContext({
+    user,
+    logOut,
+});
 
 export default newContext;

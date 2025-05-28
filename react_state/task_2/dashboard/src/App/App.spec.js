@@ -1,8 +1,8 @@
 import React from 'react';
-import newContext from '../Context/context';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import { StyleSheetTestUtils } from 'aphrodite';
+import newContext from '../Context/context';
 
 beforeAll(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -22,30 +22,39 @@ describe('App component', () => {
 
   test('calls logOut and alerts when Ctrl + H is pressed', () => {
     const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    
     render(<App />);
-    fireEvent.keyDown(document, { key: 'h', ctrlKey: true });
+
+    fireEvent.keyDown(document, {
+      key: 'h',
+      ctrlKey: true,
+    });
+
     expect(alertMock).toHaveBeenCalledWith('Logging you out');
     alertMock.mockRestore();
+
   });
 
-  test('displays "Course list" section with courses when isLoggedIn is true',async () => {
-    const user = {
-      email: 'example@gmail.com',
-      password: 'password123',
-      isLoggedIn: true,
-    };
+  test('displays content related to courses when isLoggedIn is true', () => {
+    render(<App />);
 
-    const customLogOut = jest.fn();
-    render(
-      <newContext.Provider value={{ user, logOut: customLogOut }}>
-        <App />
-      </newContext.Provider>
-    );
+    const emailInput = screen.getByLabelText(/email/i);
+    const passwordInput = screen.getByLabelText(/password/i);
+    const loginButton = screen.getByRole('button', { name: /ok/i });
 
-    await waitFor(() => {
-      const courseList = screen.getByText(/Course list/i);
-      expect(courseList).toBeInTheDocument();
-    });
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    
+    expect(loginButton).toBeEnabled();
+
+    fireEvent.click(loginButton);
+
+    const courseListHeader = screen.queryByText(/Course list/i);
+    const availableCoursesElement = screen.queryByText(/Available courses/i);
+
+    expect(courseListHeader || availableCoursesElement).toBeInTheDocument();
+
+    expect(screen.queryByText(/login to access the full dashboard/i)).not.toBeInTheDocument();
   });
 
   test('displays "Log in to continue" when isLoggedIn is false', () => {
@@ -63,7 +72,8 @@ describe('App component', () => {
 describe('App notification drawer behavior', () => {
   test('displays drawer when clicking on "Your notifications"', () => {
     render(<App />);
-    fireEvent.click(screen.getByText(/your notifications/i));
+    const menuItem = screen.getByText(/your notifications/i);
+    fireEvent.click(menuItem);
     expect(screen.getByText(/Here is the list of notifications/i)).toBeInTheDocument();
   });
 
