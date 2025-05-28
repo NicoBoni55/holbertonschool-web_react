@@ -11,10 +11,10 @@ export default function Footer() {
       <p>
         Copyright {getCurrentYear()} - {getFooterCopy(true)}
       </p>
-      {user.isLoggedIn && (
+      {user && user.isLoggedIn && (
         <p id="logoutSection">
           <span>Welcome {user.email} - </span>
-          <a href="#" onClick={logOut}>Contact us</a>
+          <a href="#" onClick={logOut}>Logout</a>
         </p>
       )}
     </div>
