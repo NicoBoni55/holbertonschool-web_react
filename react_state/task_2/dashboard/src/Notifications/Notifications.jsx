@@ -180,7 +180,7 @@ Notifications.propTypes = {
 };
 
 Notifications.defaultProps = {
-  displayDrawer: false,
+  displayDrawer: true,
   notifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},

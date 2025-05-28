@@ -1,46 +1,46 @@
-import React from "react";
-import { StyleSheet, css } from "aphrodite";
+import React from 'react';
+import { StyleSheet, css } from 'aphrodite';
 import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       enableSubmit: false,
     };
 
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);    
+    this.handleChangePassword = this.handleChangePassword.bind(this);
   }
 
-  handleLoginSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+  handleLoginSubmit(e) {
+    e.preventDefault();
     const { email, password } = this.state;
-    this.props.logIn(email, password);
-  };
+    this.props.logIn(email, password); // ✅ Login déclenché avec les valeurs de l'état
+  }
 
-  handleChangeEmail = (e) => {
+  handleChangeEmail(e) {
     const email = e.target.value;
-    this.setState({ email}, this.validateForm);
-  };
+    this.setState({ email }, this.validateForm);
+  }
 
-  handleChangePassword = (e) => {
+  handleChangePassword(e) {
     const password = e.target.value;
     this.setState({ password }, this.validateForm);
-  };
+  }
 
   validateForm = () => {
     const { email, password } = this.state;
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const validPassword = password.length >= 8;
-    this.setState({ enableSubmit: validEmail && validPassword });
-  }
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidPassword = password.length >= 8;
+    this.setState({ enableSubmit: isValidEmail && isValidPassword });
+  };
 
   render() {
-    const {email, password, enableSubmit} = this.state;
+    const { email, password, enableSubmit } = this.state;
 
     return (
       <div className={css(styles.body)}>
@@ -51,9 +51,9 @@ class Login extends React.Component {
             <input
               id="email"
               type="email"
-              className={css(styles.input)}
               value={email}
               onChange={this.handleChangeEmail}
+              className={css(styles.input)}
             />
           </div>
           <div className={css(styles.inputGroup)}>
@@ -61,17 +61,18 @@ class Login extends React.Component {
             <input
               id="password"
               type="password"
-              className={css(styles.input)}
               value={password}
               onChange={this.handleChangePassword}
+              className={css(styles.input)}
             />
           </div>
           <div className={css(styles.buttonWrapper)}>
-            <input 
-            type="submit" 
-            value="OK" 
-            className={css(styles.button)}
-            disabled={!enableSubmit} />
+            <input
+              type="submit"
+              value="OK"
+              className={css(styles.button)}
+              disabled={!enableSubmit}
+            />
           </div>
         </form>
       </div>
@@ -89,49 +90,41 @@ Login.defaultProps = {
 
 const styles = StyleSheet.create({
   body: {
-    padding: "30px",
-    "@media (max-width: 900px)": {
-      padding: "20px",
+    padding: '30px',
+    '@media (max-width: 900px)': {
+      padding: '20px',
     },
   },
   inputGroup: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: "1em",
-    "@media (max-width: 900px)": {
-      flexDirection: "column",
-      alignItems: "flex-start",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '1em',
+    '@media (max-width: 900px)': {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
     },
   },
   input: {
-    marginLeft: "10px",
-    "@media (max-width: 900px)": {
-      marginLeft: "0",
-      marginTop: "5px",
-      width: "100%",
+    marginLeft: '10px',
+    '@media (max-width: 900px)': {
+      marginLeft: '0',
+      marginTop: '5px',
+      width: '100%',
     },
   },
   buttonWrapper: {
-    "@media (max-width: 900px)": {
-      display: "flex",
-      justifyContent: "flex-start",
+    '@media (max-width: 900px)': {
+      display: 'flex',
+      justifyContent: 'flex-start',
     },
   },
   button: {
-    marginLeft: "10px",
-    "@media (max-width: 900px)": {
-      marginLeft: "0",
+    marginLeft: '10px',
+    '@media (max-width: 900px)': {
+      marginLeft: '0',
     },
   },
 });
-
-Login.propTypes = {
-  logIn: PropTypes.func.isRequired,
-};
-
-Login.defaultProps = {
-  logIn: () => {},
-};
 
 export default Login;
