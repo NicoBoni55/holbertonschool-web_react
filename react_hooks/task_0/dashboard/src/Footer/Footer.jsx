@@ -4,7 +4,7 @@ import { getCurrentYear, getFooterCopy } from '../utils/utils';
 import AppContext from '../Context/context';
 
 export default function Footer() {
-  const { user } = useContext(AppContext); // 👈 consomme le contexte
+  const { user, logOut } = useContext(AppContext);
 
   return (
     <div className={css(styles.footer)}>
@@ -13,7 +13,8 @@ export default function Footer() {
       </p>
       {user.isLoggedIn && (
         <p id="logoutSection">
-          <a href="#">Contact us</a>
+          <span>Welcome {user.email} - </span>
+          <a href="#" onClick={logOut}>Contact us</a>
         </p>
       )}
     </div>
