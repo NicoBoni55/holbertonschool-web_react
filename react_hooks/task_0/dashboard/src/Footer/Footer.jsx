@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { getCurrentYear, getFooterCopy } from '../utils/utils';
-import AppContext from '../Context/context';
+import newContext from '../Context/context';
 
 export default function Footer() {
-  const { user, logOut } = useContext(AppContext);
+  const { user, logOut } = useContext(newContext);
 
   return (
     <div className={css(styles.footer)}>
