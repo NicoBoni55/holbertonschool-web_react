@@ -62,7 +62,7 @@ class App extends React.Component {
   handleKeyDown(event) {
     if (event.ctrlKey && event.key === 'h') {
       alert('Logging you out');
-      this.state.logOut(); // utilise bien le logOut du contexte
+      this.state.logOut();
     }
   }
 

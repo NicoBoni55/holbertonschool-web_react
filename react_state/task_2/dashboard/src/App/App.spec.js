@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import newContext from '../Context/context';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 import { StyleSheetTestUtils } from 'aphrodite';
 
@@ -25,6 +26,31 @@ describe('App component', () => {
     fireEvent.keyDown(document, { key: 'h', ctrlKey: true });
     expect(alertMock).toHaveBeenCalledWith('Logging you out');
     alertMock.mockRestore();
+  });
+
+  test('displays "Course list" section with courses when isLoggedIn is true',async () => {
+    const user = {
+      email: 'example@gmail.com',
+      password: 'password123',
+      isLoggedIn: true,
+    };
+
+    const customLogOut = jest.fn();
+    render(
+      <newContext.Provider value={{ user, logOut: customLogOut }}>
+        <App />
+      </newContext.Provider>
+    );
+
+    await waitFor(() => {
+      const courseList = screen.getByText(/Course list/i);
+      expect(courseList).toBeInTheDocument();
+    });
+  });
+
+  test('displays "Log in to continue" when isLoggedIn is false', () => {
+    render(<App />);
+    expect(screen.getByText(/Log in to continue/i)).toBeInTheDocument();
   });
 
   test('displays News from the School and its paragraph', () => {
