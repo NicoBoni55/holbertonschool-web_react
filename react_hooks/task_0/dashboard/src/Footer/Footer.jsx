@@ -14,7 +14,7 @@ export default function Footer() {
       {user && user.isLoggedIn && (
         <p id="logoutSection">
           <span>Welcome {user.email} - </span>
-          <a href="#" onClick={logOut}>Logout</a>
+          <a href="#" onClick={logOut}>Contact us</a>
         </p>
       )}
     </div>
