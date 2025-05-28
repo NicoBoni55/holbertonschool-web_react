@@ -10,30 +10,31 @@ class Login extends React.Component {
       password: "",
       enableSubmit: false,
     };
+
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);    
   }
 
   handleLoginSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    this.props.logIn(this.state.email, this.state.password);
+    const { email, password } = this.state;
+    this.props.logIn(email, password);
   };
 
   handleChangeEmail = (e) => {
     const email = e.target.value;
-    this.setState({ email}, () => {
-      this.validateForm();
-    })
+    this.setState({ email}, this.validateForm);
   };
 
   handleChangePassword = (e) => {
     const password = e.target.value;
-    this.setState({ password }, () => {
-      this.validateForm();
-    });
+    this.setState({ password }, this.validateForm);
   };
 
   validateForm = () => {
     const { email, password } = this.state;
-    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const validPassword = password.length >= 8;
     this.setState({ enableSubmit: validEmail && validPassword });
   }
@@ -77,6 +78,14 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  logIn: PropTypes.func,
+};
+
+Login.defaultProps = {
+  logIn: () => {},
+};
 
 const styles = StyleSheet.create({
   body: {
