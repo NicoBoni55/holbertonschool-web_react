@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { getCurrentYear, getFooterCopy } from '../utils/utils';
-import newContext from '../Context/context';
+import AppContext from '../Context/context';
 
 export default function Footer() {
-  const { user, logOut } = useContext(newContext);
+  const { user, logOut } = useContext(AppContext);
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    logOut();
+  };
 
   return (
     <div className={css(styles.footer)}>
@@ -14,7 +19,7 @@ export default function Footer() {
       {user && user.isLoggedIn && (
         <p id="logoutSection">
           <span>Welcome {user.email} - </span>
-          <a href="#" onClick={logOut}>Contact us</a>
+          <a href="#" onClick={handleLogout}>Logout</a>
         </p>
       )}
     </div>
